@@ -131,7 +131,7 @@
           {
             "in": "query",
             "name": "Gateway",
-            "description": "Possible values: `stripe`, `paypal`, `square`, `hoodpay`, `mercado_pago`, `paypal_fnf`, `coinremitter`",
+            "description": "Possible values: `stripe`, `paypal`, `square`, `hoodpay`, `mercado_pago`, `paypal_fnf`, `coinremitter`, `oxapay`",
             "schema": {
               "type": "string"
             },
@@ -246,7 +246,22 @@
                   "gateway": {
                     "type": "string",
                     "example": "stripe",
-                    "description": "Possible values: `stripe`, `paypal`, `square`, `hoodpay`, `mercado_pago`, `paypal_fnf`, `coinremitter`"
+                    "description": "Possible values: `stripe`, `paypal`, `square`, `hoodpay`, `mercado_pago`, `paypal_fnf`, `coinremitter`, `oxapay`"
+                  },
+                  "subgateway": {
+                    "type": "string",
+                    "example": "coinremitter_bitcoin",
+                    "description": "Only available in `coinremitter` gateway, possible values: `coinremitter_litecoin`, `coinremitter_bitcoin`"
+                  },
+                  "allow_private": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether to allow private products in the cart"
+                  },
+                  "notification_url": {
+                    "type": "string",
+                    "example": "https://example.com/notification",
+                    "description": "URL to receive notifications (must be https and **POST** method)"
                   },
                   "cart": {
                     "type": "array",
