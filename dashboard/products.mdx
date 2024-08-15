@@ -47,7 +47,35 @@ After you're in the products page, press add new product
         - Still needs to be finished.
 
         #### Product Type
-        - You can hop between Serials or Service (the difference between both is that for serials you can add a list of serials keys and the stock will be derived from the list you have input. As for service, the maximum stock is unlimited, however if you want to have a max quantity you can press "Set how many times this service can be sold" and placing your number there).
+        - **SERIALS**: This will derive the stock based on the list you input as text.
+        - **SERVICE**: This will derive the stock based on the maximum stock (when -1, it will be unlimited).
+        - **DYNAMIC**: This will derive the stock based on the maximum stock (when -1, it will be unlimited).
+        
+        Dynamic means we will call your url to deliver stock, which means, you can effectively have full control over your stock via making an API.
+        Below is the data we will send to your desired url *(as application/json)*:
+
+        
+        ```json
+        {
+            "order": {
+                "uuid": "0ffd8d6a-b5d7-4df1-b2b2-533a3ad7ece7",
+                "gateway": "stripe",
+                "total": 9.99,
+                "created_at": "date-in-Iso8601"
+            },
+            "delivery_data": {
+                "productId": 1,
+                "variant": "Default",
+                "quantity": 3
+            }
+        }
+        ```
+
+        The data returns should be an array of strings with the quantity desired, which in the current example should be:
+
+        ```json
+        ["item1","item2","item3"]
+        ```
 
         #### Stock delimiter
         - This option will only be present when Serials has been selected as the product type. It allows for flexibility depending on how you want the data to be structured.
