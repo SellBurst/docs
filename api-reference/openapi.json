@@ -74,42 +74,6 @@
             "$ref": "#/components/responses/401"
           }
         }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/orders": {
@@ -320,6 +284,118 @@
                       "type": "string",
                       "example": "mp_18297389123",
                       "description": "Only available in `mercado_pago` gateway"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/tax-report": {
+      "get": {
+        "description": "Get a tax report",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/merchant"
+          },
+          {
+            "in": "query",
+            "name": "StartDate",
+            "description": "Timestamp of when the report starts",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "example": "2024-01-01T00:00:00"
+          },
+          {
+            "in": "query",
+            "name": "EndDate",
+            "description": "Timestamp of when the report ends",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "example": "2024-01-31T23:59:59"
+          },
+          {
+            "in": "query",
+            "name": "Gateways",
+            "description": "Possible values: `stripe`, `paypal`, `square`, `hoodpay`, `mercado_pago`, `paypal_fnf`, `coinremitter`, `oxapay`",
+            "schema": {
+              "type": "array"
+            },
+            "required": false,
+            "example": "[\"stripe\"]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "products": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Product 1"
+                            },
+                            "variant": {
+                              "type": "string",
+                              "example": "Week"
+                            },
+                            "price": {
+                              "type": "number",
+                              "example": 10
+                            }
+                          }
+                        }
+                      },
+                      "gateway": {
+                        "type": "string",
+                        "example": "stripe"
+                      },
+                      "order_uuid": {
+                        "type": "string",
+                        "example": "03850cee-ef04-43f8-8434-fb59d3ab2218"
+                      },
+                      "customer_email": {
+                        "type": "string",
+                        "example": "user@example.com"
+                      },
+                      "customer_country": {
+                        "type": "string",
+                        "example": "US"
+                      },
+                      "sub_total": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "paid_at": {
+                        "type": "string",
+                        "example": "2024-04-21T14:38:05"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "example": "2024-04-21T15:27:08"
+                      }
                     }
                   }
                 }

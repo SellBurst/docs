@@ -80,6 +80,12 @@
         "api-reference/orders/list",
         "api-reference/orders/create"
       ]
+    },
+    {
+      "group": "Tax Reports",
+      "pages": [
+        "api-reference/tax-report/get"
+      ]
     }
   ],
   "footerSocials": {
